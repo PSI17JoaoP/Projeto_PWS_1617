@@ -1,0 +1,26 @@
+<?php
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Data;
+
+$hand = Data::get('hand');
+$title = Data::get('title');
+
+?>
+
+<h1 align='center' style="margin-top: 0px; margin-bottom: 50px"><?=$title?></h1>
+
+<table align='center'>
+	<tr>
+
+	<?php foreach ($hand as $id => $image) { ?>
+			<td width="140">
+				<input type='image' src="<?=Asset::image('Cards/'. $image.'') ?>" /> 
+			</td>
+			<td width="10"></td>
+	<?php }?>
+
+	</tr>
+</table>

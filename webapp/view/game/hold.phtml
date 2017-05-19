@@ -1,0 +1,55 @@
+<?php
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Layout;
+
+?>
+
+
+<table align="center">
+	<tr>
+		<td width="140" height="31.6">
+			<p id='p0' align="center"></p>
+		</td>
+		
+		<td width="10" height="31.6"></td>
+		
+		<td width="140" height="31.6">
+			<p id='p1' align="center"></p>
+		</td>
+		
+		<td width="10" height="31.6"></td>
+		
+		<td width="140" height="31.6">
+			<p id='p2' align="center"></p>
+		</td>
+		
+		<td width="10" height="31.6"></td>
+		
+		<td width="140" height="31.6">
+			<p id='p3' align="center"></p>
+		</td>
+		
+		<td width="10" height="31.6"></td>
+		
+		<td width="140" height="31.6">
+			<p id='p4' align="center"></p>
+		</td>
+		
+		<td width="10" height="31.6"></td>
+
+	</tr>
+</table>
+
+<form method='POST' action="<?= URL::toRoute('game/finish')?>">
+
+	<input style='display:none' type='text' id='c0' name='c0' value='1'>
+	<input style='display:none' type='text' id='c1' name='c1' value='1'>
+	<input style='display:none' type='text' id='c2' name='c2' value='1'>
+	<input style='display:none' type='text' id='c3' name='c3' value='1'>
+	<input style='display:none' type='text' id='c4' name='c4' value='1'>
+
+	<button class="btn btn-default" type='submit'>Draw/Deal</button>
+
+</form>

@@ -1,0 +1,23 @@
+<?php
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('userheader');
+
+Layout::includeLayout('RewardTable');
+
+?>
+<div class="row">
+	<<div class="container">
+
+		<?php layout::setSubViewContainer('gamehand'); ?>
+
+		<?php layout::setSubViewContainer('gamebody'); ?>
+
+	</div>
+</div>
+<div class="row"></div>
+
+<?php Layout::includeLayout('gamefooter'); ?>

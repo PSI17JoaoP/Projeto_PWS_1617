@@ -1,0 +1,11 @@
+.card {
+    width:140px;
+    height:190px;
+    -webkit-transition:-webkit-transform 0.20s;
+    transition:transform 0.20s;
+    background:#FF0;
+}
+.flipping {
+    transform: translate(0, 20px) rotateY(90deg);
+    -webkit-transform: translate(0, 20px) rotateY(90deg);
+}

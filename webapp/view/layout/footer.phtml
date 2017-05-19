@@ -1,0 +1,44 @@
+<footer id="footer" class="top-space navbar-fixed-bottom"">
+
+<div class="footer2">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 widget">
+                <div class="widget-body">
+                    <p class="simplenav">
+                        <strong>Desenvolvido por:</strong>
+                        Leonardo Domingues |
+                        João Porêlo |
+                        Cristiano Luís
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 widget">
+                <div class="widget-body">
+                    <p class="text-right">
+                        Copyright &copy; 2016-2017, Silvio Priem Mendes, PhD. <br> Site template by Sergey Pozhilov.
+                    </p>
+                </div>
+            </div>
+
+        </div> <!-- /row of widgets -->
+    </div>
+</div>
+
+</footer>
+
+<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+
+<?php
+use ArmoredCore\Facades\AssetBundler;
+use ArmoredCore\Facades\DebugRenderer;
+?>
+
+<?=AssetBundler::js()?>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?php
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Data;
+
+?>
+
+<form method='POST' action="<?= URL::toRoute('game/start')?>">
+
+	<table align='center'>
+		<tr>
+			<td><input type='radio' name='bet' value='1' checked> Bet x1</td>
+			<td><input type='radio' name='bet' value='2'> Bet x2</td>
+			<td><input type='radio' name='bet' value='3'> Bet x3</td>
+			<td><input type='radio' name='bet' value='4'> Bet x4</td>
+			<td><input type='radio' name='bet' value='5'> Bet x5</td>
+		</tr>
+	</table>
+
+	<button class="btn btn-default" type='submit'>Draw/Deal</button>
+
+</form>

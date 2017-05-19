@@ -1,0 +1,14 @@
+<?php
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Data;
+
+$prize = Data::get('prize');
+$reward = Data::get('reward');
+?>
+
+<p align="center"><?=$prize?></p>
+<p align="center">Reward: <?=$reward?> crédito(s)</p>
+<a href="<?= URL::toRoute('game/index')?>"><button class="btn btn-default">Novo</button></a>

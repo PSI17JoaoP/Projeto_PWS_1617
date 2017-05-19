@@ -1,0 +1,65 @@
+<?php
+	$listRewards = array(250 => "ROYAL FLUSH", 
+						50 => "STRAIGHT FLUSH", 
+						30 => "4 OF A KIND", 
+						6 => "FULL HOUSE", 
+						5 => "FLUSH", 
+						4 => "STRAIGHT", 
+						3 => "THREE OF A KIND", 
+						2 => "TWO PAIR", 
+						1 => "JACKS OR BETTER");
+
+?>
+
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<table class="table table-hover table-bordered table-condensed" style="margin-top: 50px;">
+			<thead>
+			<tr>
+				<td width="200"><b>Combinação</b></td>
+				<td align='center' width="75"><b>Bet x1</b></td>
+				<td align='center' width="75"><b>Bet x2</b></td>
+				<td align='center' width="75"><b>Bet x3</b></td>
+				<td align='center' width="75"><b>Bet x4</b></td>
+				<td align='center' width="75"><b>Bet x5</b></td>
+			</tr>
+			</thead>
+			<tbody>
+
+		<?php
+			foreach ($listRewards as $multiplier => $combo) {
+				
+				echo "<tr>";
+				echo "<td>$combo</td>";
+
+				for ($i=1; $i <= 5; $i++) { 
+					
+					if ($multiplier == 250 && $i == 5) {
+
+						if ($i == $_SESSION["bet"]) {
+							echo "<td align='center' class='danger'>4000</td>";
+						}else{
+							echo "<td align='center'>4000</td>";
+						}
+
+					}else{
+						if ($i == $_SESSION["bet"]) {
+							echo "<td align='center' class='danger'>".$multiplier*$i."</td>";
+						}else{
+							echo "<td align='center'>".$multiplier*$i."</td>";
+						}
+					}
+				
+				}
+
+				echo "</tr>";
+
+			}
+		?>
+
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-3"></div>
+</div>
