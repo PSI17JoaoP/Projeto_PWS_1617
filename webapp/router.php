@@ -28,7 +28,6 @@ Router::get('home/jackpot',	    'MainController/jackpot');
 //-----------------------USER-----------------------------------
 
 Router::get('user/', 		                'UserController/index');
-Router::get('user/index', 		            'UserController/index');
 Router::get('user/perfil', 		            'UserController/perfil');
 Router::post('user/perfil', 		        'UserController/editar');
 Router::get('user/movimentos', 		        'UserController/movimentos');
