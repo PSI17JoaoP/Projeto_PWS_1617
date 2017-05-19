@@ -1,0 +1,40 @@
+<?php
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Data;
+
+$jackpot = Data::get('jackpot');
+?>
+
+<div class="row">
+	<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<table class="table table-hover table-bordered table-condensed">
+				<thead>
+					<tr>
+						<td align='center' width="75"><b>Utilizador</b></td>
+						<td align='center' width="75"><b>Nº de wins</b></td>
+						<td align='center' width="75"><b>Valor de prémio total</b></td>
+					</tr>
+				</thead>
+				<tbody>
+
+				<?php
+					foreach ($jackpot as $records) {
+						
+						echo "<tr>";
+						
+							echo "<td>$records[0]</td>";
+							echo "<td>$records[1]</td>";
+							echo "<td>$records[2]</td>";
+
+						echo "</tr>";
+					}
+				?>
+
+				</tbody>
+			</table>
+		</div>
+	<div class="col-md-3"></div>
+</div>

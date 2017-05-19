@@ -78,6 +78,41 @@ class MainController extends BaseController
 			}*/
 		}
 	}
+
+	public function jackpot()
+	{
+		$jackpot = array();
+
+
+		$query = "SELECT users.nome_completo, COUNT(*), SUM(valor)
+					FROM users
+					JOIN movements ON users.id = movements.idutilizador
+					WHERE movements.tipo = 'win'
+					GROUP BY movements.idutilizador
+					ORDER BY 3 DESC;";
+
+		//$jackpot = User::find_by_sql($query);
+
+
+
+		$con = mysqli_connect("localhost", "root", "", "poker_online");
+
+		$records = mysqli_query($con, $query);
+
+		while($row = mysqli_fetch_array($records))
+		{
+			$line = array($row[0], $row[1], $row[2]);
+			array_push($jackpot, $line);
+		}
+
+		mysqli_close($con);
+
+
+
+		View::attachsubview('jackpot', 'layout.jackpot',  ['jackpot' => $jackpot]);
+
+		return View::make('home/jackpot');
+	}
 }
 
 ?>

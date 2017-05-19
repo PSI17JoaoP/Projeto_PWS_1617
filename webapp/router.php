@@ -21,6 +21,7 @@ Router::get('home/login',		'MainController/index');
 Router::post('home/login',		'MainController/login');
 Router::get('home/register',	'MainController/register');
 Router::post('home/register',	'MainController/makeaccount');
+Router::get('home/jackpot',	    'MainController/jackpot');
 
 //--------------------------------------------------------------
 
