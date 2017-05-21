@@ -32,15 +32,15 @@ use ArmoredCore\WebObjects\URL;
 <!-- Fixed navbar -->
 <div class="navbar navbar-inverse " >
     <div class="container">
-        <!--<div class="navbar-header">-->
+        <div class="navbar-header">
             <!-- Button for smallest screens-->
-            <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-            <a class="navbar-brand" href="<?= URL::toRoute('user/perfil')?>"><img src="<?= Asset::image('logo.png')?>" alt="WEBlogic MVC"></a>
-        </div>-->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <a class="navbar-brand" href="<?= URL::toRoute('game/index')?>"><img src="<?= Asset::image('logo.png')?>" alt="WEBlogic MVC"></a>
+        </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-                <li class="active"><a href="<?= URL::toRoute('home/jackpot')?>">Inicio</a></li>
-                <li><a href="<?= URL::toRoute('game/index')?>">Jogo</a></li>
+                <li class="active"><a href="<?= URL::toRoute('home/jackpot')?>">Jackpot</a></li>
+                <li><a href="<?= URL::toRoute('game/index')?>">Jogar</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Conta<b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -49,7 +49,7 @@ use ArmoredCore\WebObjects\URL;
                         <li><a href="<?= Url::toRoute('user/carregamento')?>">Carregar</a></li>
                     </ul>
                 </li>
-                <li><a class="btn" href="<?= URL::toRoute('home/login')?>">Sair</a></li>
+                <li><a class="btn" href="<?= URL::toRoute('user/logout')?>">Sair</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

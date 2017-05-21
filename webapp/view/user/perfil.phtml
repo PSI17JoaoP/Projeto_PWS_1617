@@ -1,0 +1,66 @@
+<?php 
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Session;
+
+Layout::includeLayout('userheader');
+
+$user = Data::get('user');
+
+$data = $user->data_nascimento;
+$data_nascimento = $data->format('Y-m-d');
+
+?>
+
+<div class="container">
+    <div class="row">
+        <article class="col-xs-12 maincontent">
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-default" style="margin-top: 50px; margin-bottom: 100px">
+                    <div class="panel-body">
+                        <h3 class="thin text-center">Perfil</h3>
+
+                        <hr>
+                        
+                        <form method="POST" action="<?= URL::toRoute('user/perfil')?>">
+                            <div class="top-margin">
+                                <label>Nome Completo<span class="text-danger">*</span></label>
+                                <input type="text" value="<?=$user->nome_completo?>" class="form-control" name="nome">
+                            </div>
+                            <div class="top-margin">
+                                <label>Data de Nascimento <span class="text-danger">*</span></label>
+                                <input type="date" value="<?=$data_nascimento?>" class="form-control" name="birthdate">
+                            </div>
+                            <div class="top-margin">
+                                <label>Email<span class="text-danger">*</span></label>
+                                <input type="email" value="<?=$user->email?>" class="form-control" name="email">
+                            </div>
+                            <div class="top-margin">
+                                <label>Nome de Utilizador<span class="text-danger">*</span></label>
+                                <input type="text" value="<?=$user->username?>" class="form-control" name="username">
+                            </div>
+                            <div class="top-margin">
+                                <label>Nova Palavra-Passe <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-lg-8">
+                                </div>
+                                <div class="col-lg-4 text-right">
+                                    <button class="btn btn-action" type="submit">Aplicar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+
+<?php Layout::includeLayout('footer') ?>
