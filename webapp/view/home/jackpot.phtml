@@ -18,37 +18,40 @@ else
 }
 
 ?>
+<div class="container">
+	<h1 class="thin text-center" style="margin-top: 50px"><b>Jackpot</b></h1>
+	
+	<div class="row" style="margin-top: 50px; margin-bottom: 285px">
+		<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<table class="table table-hover table-bordered table-condensed">
+					<thead>
+						<tr>
+							<td align='center' width="75"><b>Utilizador</b></td>
+							<td align='center' width="75"><b>Nº de wins</b></td>
+							<td align='center' width="75"><b>Valor de prémio total</b></td>
+						</tr>
+					</thead>
+					<tbody>
 
-<div class="row">
-	<div class="col-md-3"></div>
-		<div class="col-md-6">
-			<table class="table table-hover table-bordered table-condensed">
-				<thead>
-					<tr>
-						<td align='center' width="75"><b>Utilizador</b></td>
-						<td align='center' width="75"><b>Nº de wins</b></td>
-						<td align='center' width="75"><b>Valor de prémio total</b></td>
-					</tr>
-				</thead>
-				<tbody>
+					<?php
+						foreach ($jackpot as $records) {
+							
+							echo "<tr>";
+							
+								echo "<td>$records[0]</td>";
+								echo "<td>$records[1]</td>";
+								echo "<td>$records[2]</td>";
 
-				<?php
-					foreach ($jackpot as $records) {
-						
-						echo "<tr>";
-						
-							echo "<td>$records[0]</td>";
-							echo "<td>$records[1]</td>";
-							echo "<td>$records[2]</td>";
+							echo "</tr>";
+						}
+					?>
 
-						echo "</tr>";
-					}
-				?>
-
-				</tbody>
-			</table>
-		</div>
-	<div class="col-md-3"></div>
+					</tbody>
+				</table>
+			</div>
+		<div class="col-md-3"></div>
+	</div>
 </div>
 
 <?php Layout::includeLayout('footer'); ?>
