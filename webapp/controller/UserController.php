@@ -31,8 +31,6 @@ class UserController extends BaseController
 
 		$user = User::find($user_session->id);
 
-		$dados = array();
-
 		if($password != "")
 		{
 			$user->password = password_hash($password, PASSWORD_BCRYPT);
