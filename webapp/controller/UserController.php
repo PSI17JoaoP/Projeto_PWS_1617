@@ -3,6 +3,7 @@ use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
+use ArmoredCore\WebObjects\Post;
 
 
 class UserController extends BaseController
@@ -26,24 +27,43 @@ class UserController extends BaseController
 		$username = Post::get('username');
 		$password = Post::get('password');
 
-		//$user = User::find($id);
+		$user_session = Session::get('user');
 
-		$user = Session::get('user');
+		$user = User::find($user_session->id);
 
-		if(is_null($password))
+		$dados = array();
+
+		if($password != "")
 		{
-			$dados = array('nome_completo' => $nome, 'data_nascimento' => $birthdate, 'email' => $email, 'username' => $username);
+			$user->password = password_hash($password, PASSWORD_BCRYPT);
 		}
 
-		else
+		if($user->nome_completo != $nome)
 		{
-			$dados = array('nome_completo' => $nome, 'data_nascimento' => $birthdate, 'email' => $email, 'username' => $username,
-			'password' => password_hash($password, PASSWORD_BCRYPT));
+			$user->nome_completo = $nome;
 		}
 
-		$user->update_attributes($dados);
+		if($user->data_nascimento != $birthdate)
+		{
+			$user->data_nascimento = $birthdate;
+		}
 
-		Redirect::ToRoute('user/perfil');
+		if($user->email != $email)
+		{
+			$user->email = $email;
+		}
+
+		if($user->username != $username)
+		{
+			$user->username = $username;
+		}
+
+		$user->save();
+
+		Session::destroy();
+		Session::set('user', $user);
+
+		Redirect::ToRoute('game/index');
 	}
 
 	public function movimentos()

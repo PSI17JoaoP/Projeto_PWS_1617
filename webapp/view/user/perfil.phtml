@@ -20,29 +20,27 @@ $data_nascimento = $data->format('Y-m-d');
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                 <div class="panel panel-default" style="margin-top: 50px; margin-bottom: 100px">
                     <div class="panel-body">
-                        <h3 class="thin text-center">Perfil</h3>
+                        <h3 class="thin text-center">Perfil - Edição</h3>
 
-                        <hr>
-                        
                         <form method="POST" action="<?= URL::toRoute('user/perfil')?>">
                             <div class="top-margin">
-                                <label>Nome Completo<span class="text-danger">*</span></label>
+                                <label>Nome Completo</label>
                                 <input type="text" value="<?=$user->nome_completo?>" class="form-control" name="nome">
                             </div>
                             <div class="top-margin">
-                                <label>Data de Nascimento <span class="text-danger">*</span></label>
+                                <label>Data de Nascimento</label>
                                 <input type="date" value="<?=$data_nascimento?>" class="form-control" name="birthdate">
                             </div>
                             <div class="top-margin">
-                                <label>Email<span class="text-danger">*</span></label>
+                                <label>Email</label>
                                 <input type="email" value="<?=$user->email?>" class="form-control" name="email">
                             </div>
                             <div class="top-margin">
-                                <label>Nome de Utilizador<span class="text-danger">*</span></label>
+                                <label>Nome de Utilizador</label>
                                 <input type="text" value="<?=$user->username?>" class="form-control" name="username">
                             </div>
                             <div class="top-margin">
-                                <label>Nova Palavra-Passe <span class="text-danger">*</span></label>
+                                <label>Nova Palavra-Passe</label>
                                 <input type="password" class="form-control" name="password">
                             </div>
 
