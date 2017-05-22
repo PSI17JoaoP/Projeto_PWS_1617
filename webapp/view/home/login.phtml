@@ -3,53 +3,45 @@
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('header');
+Layout::includeLayout('indexheader');
 ?>
 
-	<!-- container -->
-	<div class="container">
+<div class="container">
+	<div class="row">		
+		<article class="col-xs-12 maincontent">
+			<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+				<div class="panel panel-default" style="margin-top: 50px">
+					<div class="panel-body">
+						<h3 class="thin text-center">Login</h3>
 
-		<div class="row">
-			
-			<!-- Article main content -->
-			<article class="col-xs-12 maincontent">
-				
-				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-					<div class="panel panel-default" style="margin-top: 50px">
-						<div class="panel-body">
-							<h3 class="thin text-center">Login</h3>
+						<hr>
+						
+						<form method="POST" action="<?= URL::toRoute('home/login')?>">
+							<div class="top-margin">
+								<label>Utilizador <span class="text-danger">*</span></label>
+								<input type="text" class="form-control" name="username">
+							</div>
+							<div class="top-margin">
+								<label>Palavra-Passe <span class="text-danger">*</span></label>
+								<input type="password" class="form-control" name="password">
+							</div>
+
 							<hr>
-							
-							<form method="POST" action="<?= URL::toRoute('home/login')?>">
-								<div class="top-margin">
-									<label>Utilizador <span class="text-danger">*</span></label>
-									<input type="text" class="form-control" name="username">
-								</div>
-								<div class="top-margin">
-									<label>Palavra-Passe <span class="text-danger">*</span></label>
-									<input type="password" class="form-control" name="password">
-								</div>
 
-								<hr>
-
-								<div class="row">
-									<div class="col-lg-8">
-										<b><a href="<?= URL::toRoute('home/register') ?>">Crie uma conta</a></b>
-									</div>
-									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit">Entrar</button>
-									</div>
+							<div class="row">
+								<div class="col-lg-8">
+									<b><a href="<?= URL::toRoute('home/register') ?>">Crie uma conta</a></b>
 								</div>
-							</form>
-						</div>
+								<div class="col-lg-4 text-right">
+									<button class="btn btn-action" type="submit">Entrar</button>
+								</div>
+							</div>
+						</form>
 					</div>
-
 				</div>
-				
-			</article>
-			<!-- /Article -->
-
-		</div>
-	</div>	<!-- /container -->
+			</div>
+		</article>
+	</div>
+</div>
 
 <?php Layout::includeLayout('footer') ?>

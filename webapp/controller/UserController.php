@@ -41,12 +41,9 @@ class UserController extends BaseController
 			'password' => password_hash($password, PASSWORD_BCRYPT));
 		}
 
-		if($user->is_valid())
-		{
-			$user->update_attributes($dados);
+		$user->update_attributes($dados);
 
-			Redirect::ToRoute('user/perfil');
-		}
+		Redirect::ToRoute('user/perfil');
 	}
 
 	public function movimentos()

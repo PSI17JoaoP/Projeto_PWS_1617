@@ -9,3 +9,9 @@
     transform: translate(0, 20px) rotateY(90deg);
     -webkit-transform: translate(0, 20px) rotateY(90deg);
 }
+
+.footer2{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
