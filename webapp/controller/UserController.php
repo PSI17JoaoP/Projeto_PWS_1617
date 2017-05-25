@@ -10,8 +10,6 @@ class UserController extends BaseController
 {
 	public function perfil()
 	{
-		//$user = User::find($id);
-
 		$user = Session::get('user');
 
 		View::attachsubview('perfil', 'user.perfil',  ['user' => $user]);
@@ -31,37 +29,45 @@ class UserController extends BaseController
 
 		$user = User::find($user_session->id);
 
-		if($password != "")
+		if(ctype_alnum($nome) && ctype_alnum($username))
 		{
-			$user->password = password_hash($password, PASSWORD_BCRYPT);
+			if($password != "")
+			{
+				$user->password = password_hash($password, PASSWORD_BCRYPT);
+			}
+
+			if($user->nome_completo != $nome)
+			{
+				$user->nome_completo = $nome;
+			}
+
+			if($user->data_nascimento != $birthdate)
+			{
+				$user->data_nascimento = $birthdate;
+			}
+
+			if($user->email != $email)
+			{
+				$user->email = $email;
+			}
+
+			if($user->username != $username)
+			{
+				$user->username = $username;
+			}
+
+			$user->save();
+
+			Session::destroy();
+			Session::set('user', $user);
+
+			Redirect::ToRoute('game/index');
 		}
 
-		if($user->nome_completo != $nome)
+		else
 		{
-			$user->nome_completo = $nome;
+			
 		}
-
-		if($user->data_nascimento != $birthdate)
-		{
-			$user->data_nascimento = $birthdate;
-		}
-
-		if($user->email != $email)
-		{
-			$user->email = $email;
-		}
-
-		if($user->username != $username)
-		{
-			$user->username = $username;
-		}
-
-		$user->save();
-
-		Session::destroy();
-		Session::set('user', $user);
-
-		Redirect::ToRoute('game/index');
 	}
 
 	public function movimentos()
@@ -72,13 +78,37 @@ class UserController extends BaseController
 
 	public function carregamento()
 	{
+		$user = Session::get('user');
 
-		return View::make('user/carregamento');
+		return View::make('user/carregamento', ['saldo' => $user->saldo_atual]);
 	}
 
 	public function carregar()
 	{
+		$montante = str_replace(' ', '', Post::get('montante'));
 
+		$user = Session::get('user');
+
+		if(is_numeric($montante))
+		{
+			if($montante != "")
+			{
+				$saldo = $user->saldo_atual + (intval($montante) * 4);
+				$user->saldo_atual = $saldo;
+			}
+
+			$user->save();
+
+			Session::destroy();
+			Session::set('user', $user);
+
+			Redirect::ToRoute('game/index');
+		}
+
+		else
+		{
+
+		}
 	}
 
 	public function logout()
