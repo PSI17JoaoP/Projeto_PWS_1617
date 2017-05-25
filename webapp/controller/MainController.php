@@ -64,29 +64,32 @@ class MainController extends BaseController
 		$username = Post::get('username');
 		$password = Post::get('password');
 
-		$user = User::find_by_username($username);
-
-		if(password_verify($password, $user->password))
+		if(!is_null($username) && !is_null($password))
 		{
-			if($user->tipo === "Admin")
-			{
-				Session::set('admin', $user);
+			$user = User::find_by_username($username);
 
-				Redirect::toRoute('backoffice/index', $user->id);
+			if(password_verify($password, $user->password))
+			{
+				if($user->tipo === "Admin")
+				{
+					Session::set('admin', $user);
+
+					Redirect::toRoute('backoffice/index', $user->id);
+				}
+
+				else
+				{
+					Session::set('user', $user);
+
+					Redirect::toRoute('game/index', $user->id);
+				}
 			}
 
-			else
+			/*else
 			{
-				Session::set('user', $user);
-
-				Redirect::toRoute('game/index', $user->id);
-			}
+				Redirect::flashToRoute('home/index', ['user' => $user]);
+			}*/
 		}
-
-		/*else
-		{
-			Redirect::flashToRoute('home/index', ['user' => $user]);
-		}*/
 	}
 
 	public function jackpot()
