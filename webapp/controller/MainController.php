@@ -97,28 +97,22 @@ class MainController extends BaseController
 		$jackpot = array();
 
 
-		$query = "SELECT users.nome_completo, COUNT(*), SUM(valor)
+		$query = "SELECT users.nome_completo, COUNT(*) as 'Count', SUM(valor) as 'Sum'
 					FROM users
 					JOIN movements ON users.id = movements.idutilizador
 					WHERE movements.tipo = 'win'
 					GROUP BY movements.idutilizador
-					ORDER BY 3 DESC;";
+					ORDER BY 3 DESC
+					LIMIt 10;";
 
-		//$jackpot = User::find_by_sql($query);
+		
+		$results = User::find_by_sql($query);
 
 
-
-		$con = mysqli_connect("localhost", "root", "", "poker_online");
-
-		$records = mysqli_query($con, $query);
-
-		while($row = mysqli_fetch_array($records))
-		{
-			$line = array($row[0], $row[1], $row[2]);
+		foreach ($results as $i => $record) {
+			$line = array($record->nome_completo, $record->count, $record->sum);
 			array_push($jackpot, $line);
 		}
-
-		mysqli_close($con);
 
 		return View::make('home/jackpot',  ['jackpot' => $jackpot]);
 	}
