@@ -37,6 +37,16 @@ class GameController extends BaseController
 		if ($user_session->saldo_atual >= $bet) {
 			
 			$user_session->saldo_atual -= $bet;
+			$user_session->save();
+
+			$move = new Movement();
+			$move->data = date_create(date('d-m-Y'));
+			$move->tipo = "bet";
+			$move->descricao = "Aposta x$bet";
+			$move->valor = $bet;
+			$move->saldo = $user_session->saldo_atual;
+			$move->idutilizador = $user_session->id;
+			$move->save();
 
 			$game = new Game();
 
@@ -72,7 +82,8 @@ class GameController extends BaseController
 		$card3 = Post::get('c2');
 		$card4 = Post::get('c3');
 		$card5 = Post::get('c4');
-	
+		
+		$user_session = Session::get('user');
 
 		$game = new Game();
 
@@ -89,6 +100,20 @@ class GameController extends BaseController
 		$prize = $game->CheckHand($hand);
 
 		$reward = $game->CheckPrize($prize, Session::get('bet'));
+
+		$user_session->saldo_atual += $reward;
+		$user_session->save();
+
+		if ($prize != "Nothing") {
+			$move = new Movement();
+			$move->data = date_create(date('d-m-Y'));
+			$move->tipo = "win";
+			$move->descricao = $prize;
+			$move->valor = $reward;
+			$move->saldo = $user_session->saldo_atual;
+			$move->idutilizador = $user_session->id;
+			$move->save();
+		}
 
 			
 		View::attachsubview('gamehand', 'game.statichand', ['hand' => $handImages, 'title' => 'Mão Final']);
