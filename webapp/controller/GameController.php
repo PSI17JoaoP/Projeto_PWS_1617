@@ -10,7 +10,10 @@ class GameController extends BaseController
 {
 
 	public function index(){
-		$_SESSION["bet"] = 0;
+		Session::set('bet', 0);
+		Session::remove('hand');
+		Session::remove('deck');
+
 
 		$handImages = array();
 
@@ -27,29 +30,39 @@ class GameController extends BaseController
 	public function start(){
 
 		$bet = Post::get('bet');
-		$_SESSION["bet"] = $bet;
+		Session::set('bet', $bet);
+
+		$user_session = Session::get('user');
+
+		if ($user_session->saldo_atual > $bet) {
+			
+			$user_session->saldo_atual -= $bet;
+
+			$game = new Game();
+
+			$deck = $game->CreateDeck();
+			$hand = $game->CreateHand($deck);
+
+			Session::set('hand', $hand);
+			Session::set('deck', $deck);
+
+			$handImages = array();
+
+			foreach ($hand as $handCard) {
+				array_push($handImages, $handCard->Image);
+			}
 
 
-		$game = new Game();
+			View::attachsubview('gamehand', 'game.hand', ['hand' => $handImages, 'title' => 'Mão Inicial']);
+			View::attachsubview('gamebody', 'game.hold');
 
-		$deck = $game->CreateDeck();
-		$hand = $game->CreateHand($deck);
+			return View::make('game.index');
+		}else{
 
-		$_SESSION["hand"] = $hand;
-		$_SESSION["deck"] = $deck;
-
-
-		$handImages = array();
-
-		foreach ($hand as $handCard) {
-			array_push($handImages, $handCard->Image);
+			Redirect::ToRoute('game/index');
 		}
 
-
-		View::attachsubview('gamehand', 'game.hand', ['hand' => $handImages, 'title' => 'Mão Inicial']);
-		View::attachsubview('gamebody', 'game.hold');
-
-		return View::make('game.index');
+				
 
 	}
 
@@ -63,7 +76,7 @@ class GameController extends BaseController
 
 		$game = new Game();
 
-		$hand = $game->DrawHand($_SESSION["deck"], $_SESSION["hand"], $card1, $card2, $card3, $card4, $card5);
+		$hand = $game->DrawHand(Session::get('deck'), Session::get('hand'), $card1, $card2, $card3, $card4, $card5);
 
 		//---------------------------------------------
 		$handImages = array();
@@ -75,7 +88,7 @@ class GameController extends BaseController
 
 		$prize = $game->CheckHand($hand);
 
-		$reward = $game->CheckPrize($prize, $_SESSION["bet"]);
+		$reward = $game->CheckPrize($prize, Session::get('bet'));
 
 			
 		View::attachsubview('gamehand', 'game.statichand', ['hand' => $handImages, 'title' => 'Mão Final']);
