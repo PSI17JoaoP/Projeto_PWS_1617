@@ -34,7 +34,7 @@ class GameController extends BaseController
 
 		$user_session = Session::get('user');
 
-		if ($user_session->saldo_atual > $bet) {
+		if ($user_session->saldo_atual >= $bet) {
 			
 			$user_session->saldo_atual -= $bet;
 
