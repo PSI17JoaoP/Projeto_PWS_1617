@@ -25,12 +25,14 @@ class UserController extends BaseController
 		$username = Post::get('username');
 		$password = Post::get('password');
 
+		$dirty = false;
+
 		$user_session = Session::get('user');
 
 		$user = User::find($user_session->id);
 
-		if(ctype_alnum($nome) && ctype_alnum($username))
-		{
+		/*if(ctype_alnum($nome) && ctype_alnum($username))
+		{*/
 			if($password != "")
 			{
 				$user->password = password_hash($password, PASSWORD_BCRYPT);
@@ -38,12 +40,12 @@ class UserController extends BaseController
 
 			if($user->nome_completo != $nome)
 			{
-				$user->nome_completo = $nome;
+				$user->nome_completo = $nome;				
 			}
 
 			if($user->data_nascimento != $birthdate)
 			{
-				$user->data_nascimento = $birthdate;
+				$user->data_nascimento = $birthdate;				
 			}
 
 			if($user->email != $email)
@@ -53,21 +55,24 @@ class UserController extends BaseController
 
 			if($user->username != $username)
 			{
-				$user->username = $username;
+				$user->username = $username;			
 			}
 
-			$user->save();
+			if($dirty)
+			{
+				$user->save();
 
-			Session::destroy();
-			Session::set('user', $user);
+				Session::destroy();
+				Session::set('user', $user);
 
-			Redirect::ToRoute('game/index');
-		}
+				Redirect::ToRoute('game/index');
+			}
+		/*}*/
 
-		else
+		/*else
 		{
 			
-		}
+		}*/
 	}
 
 	public function movimentos()

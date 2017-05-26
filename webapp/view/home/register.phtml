@@ -19,23 +19,23 @@ Layout::includeLayout('indexheader');
 						<form method="POST" action="<?= URL::toRoute('home/register')?>">
 							<div class="top-margin">
 								<label>Nome Completo<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" name="nome">
+								<input type="text" class="form-control" name="nome" required="required">
 							</div>
 							<div class="top-margin">
 								<label>Data de Nascimento <span class="text-danger">*</span></label>
-								<input type="date" class="form-control" name="birthdate">
+								<input type="date" class="form-control" name="birthdate" required="required">
 							</div>
 							<div class="top-margin">
 								<label>Email<span class="text-danger">*</span></label>
-								<input type="email" class="form-control" name="email">
+								<input type="email" class="form-control" name="email" required="required">
 							</div>
 							<div class="top-margin">
 								<label>Nome de Utilizador<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" name="username">
+								<input type="text" class="form-control" name="username" required="required">
 							</div>
 							<div class="top-margin">
 								<label>Palavra-Passe <span class="text-danger">*</span></label>
-								<input type="password" class="form-control" name="password">
+								<input type="password" class="form-control" name="password" required="required">
 							</div>
 
 							<hr>

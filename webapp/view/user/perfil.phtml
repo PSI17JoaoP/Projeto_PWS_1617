@@ -25,19 +25,19 @@ $data_nascimento = $data->format('Y-m-d');
                         <form method="POST" action="<?= URL::toRoute('user/perfil')?>">
                             <div class="top-margin">
                                 <label>Nome Completo</label>
-                                <input type="text" value="<?=$user->nome_completo?>" class="form-control" name="nome">
+                                <input type="text" value="<?=$user->nome_completo?>" class="form-control" name="nome" required="required">
                             </div>
                             <div class="top-margin">
                                 <label>Data de Nascimento</label>
-                                <input type="date" value="<?=$data_nascimento?>" class="form-control" name="birthdate">
+                                <input type="date" value="<?=$data_nascimento?>" class="form-control" name="birthdate" required="required">
                             </div>
                             <div class="top-margin">
                                 <label>Email</label>
-                                <input type="email" value="<?=$user->email?>" class="form-control" name="email">
+                                <input type="email" value="<?=$user->email?>" class="form-control" name="email" required="required">
                             </div>
                             <div class="top-margin">
                                 <label>Nome de Utilizador</label>
-                                <input type="text" value="<?=$user->username?>" class="form-control" name="username">
+                                <input type="text" value="<?=$user->username?>" class="form-control" name="username" required="required">
                             </div>
                             <div class="top-margin">
                                 <label>Nova Palavra-Passe</label>
