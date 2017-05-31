@@ -68,18 +68,17 @@ class UserController extends BaseController
 				Redirect::ToRoute('game/index');
 			}
 		/*}*/
-
-		/*else
-		{
-			
-		}*/
 	}
 
 	public function movimentos()
 	{
 		$user = Session::get('user');
 
-		$movimentos = Movement::find_by_idutilizador($user->id);
+		$restricoes = array('conditions' => array('idutilizador = ?', $user->id));
+
+		$movimentos = Movement::all($restricoes);
+
+		//Debugger::barDump($movimentos, 'asdasd');
 
 		return View::make('user/movimentos', ['movimentos' => $movimentos]);
 	}
