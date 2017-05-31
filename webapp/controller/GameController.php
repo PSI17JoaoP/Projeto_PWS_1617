@@ -40,7 +40,6 @@ class GameController extends BaseController
 			$user_session->save();
 
 			$move = new Movement();
-			$move->data = date_create(date('d-m-Y'));
 			$move->tipo = "bet";
 			$move->descricao = "Aposta x$bet";
 			$move->valor = $bet;
@@ -106,7 +105,6 @@ class GameController extends BaseController
 
 		if ($prize != "Nothing") {
 			$move = new Movement();
-			$move->data = date_create(date('d-m-Y'));
 			$move->tipo = "win";
 			$move->descricao = $prize;
 			$move->valor = $reward;

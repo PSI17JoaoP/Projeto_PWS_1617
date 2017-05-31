@@ -4,7 +4,7 @@ use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
 use ArmoredCore\WebObjects\Post;
-
+use Tracy\Debugger;
 
 class UserController extends BaseController
 {
@@ -77,8 +77,11 @@ class UserController extends BaseController
 
 	public function movimentos()
 	{
+		$user = Session::get('user');
 
-		return View::make('user/movimentos');
+		$movimentos = Movement::find_by_idutilizador($user->id);
+
+		return View::make('user/movimentos', ['movimentos' => $movimentos]);
 	}
 
 	public function carregamento()
@@ -98,16 +101,29 @@ class UserController extends BaseController
 		{
 			if($montante != "")
 			{
-				$saldo = $user->saldo_atual + (intval($montante) * 4);
+				$creditos = (intval($montante) * 4);
+				$saldo = $user->saldo_atual + $creditos;
 				$user->saldo_atual = $saldo;
+
+				$user->save();
+
+				$movement = new Movement();
+				$movement->tipo = "pay";
+				$movement->descricao = "Carregamento " . $montante . "€";
+				$movement->valor = $creditos;
+				$movement->saldo = $user->saldo_atual;
+				$movement->idutilizador = $user->id;
+				
+				if($movement->is_valid())
+				{
+					$movement->save();
+
+					Session::destroy();
+					Session::set('user', $user);
+
+					Redirect::ToRoute('game/index');
+				}
 			}
-
-			$user->save();
-
-			Session::destroy();
-			Session::set('user', $user);
-
-			Redirect::ToRoute('game/index');
 		}
 
 		else
