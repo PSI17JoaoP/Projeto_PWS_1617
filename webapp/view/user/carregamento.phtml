@@ -24,7 +24,7 @@ $saldo = Data::get('saldo');
 						<form method="POST" action="<?= URL::toRoute('user/carregamento')?>">
 							<div class="top-margin">
 								<label>Montante (<b>€</b>)</label>
-								<input type="text" class="form-control" name="montante">
+								<input type="text" class="form-control" name="montante" required="required">
 							</div>
 
 							<hr>
