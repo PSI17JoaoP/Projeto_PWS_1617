@@ -34,7 +34,13 @@ Router::get('user/logout', 		                'UserController/logout');
 
 //-----------------------BACKOFFICE-----------------------------
 
-Router::get('backoffice/index', 'BackOfficeController/index');
+Router::get('backoffice/', 		                'BackOfficeController/index');
+Router::get('backoffice/index', 		        'BackOfficeController/index');
+Router::get('backoffice/register',   			'BackOfficeController/register');
+Router::post('backoffice/register', 			'BackOfficeController/criaradmin');
+Router::get('backoffice/logout', 				'BackOfficeController/logout');
+Router::post('backoffice/status', 			'BackOfficeController/guardaralteracoes');
+
 
 //--------------------------------------------------------------
 

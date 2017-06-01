@@ -2,24 +2,62 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
-Layout::includeLayout('indexheader');
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Session;
 
+$users = Data::get('users');
+
+//mudar index header e colcoar um botão para Criar
+Layout::includeLayout('backofficeheader');
 ?>
 
-        <div class="jumbotron top-space"></div>
+<div class="container">
+    <h1 class="thin text-center" style="margin-top: 50px"><b>Utilizadores</b></h1>
     
-        <div class="jumbotron top-space">
-            <h4><strong> TO-DO</strong> 
-                <h5>
-                    <ul>
-                        <li><strong>Página Inicial</strong> Mostrar algo de útil ao user que entrar aqui</li>
-                        <li><strong>Restantes páginas</strong> Criar as restantes páginas</li>
-                        <li><strong>Router.php</strong> Atualizar o router com os novos caminhos</li>
-                        <li><strong>Controladores, modelos, etc</strong> Fazer o restante código</li>
-                    </ul>
-                </h5>
-        </div>
+    <div class="row" style="margin-top: 50px; margin-bottom: 285px">
+        <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <table class="table table-hover table-bordered table-condensed">
+                    <thead>
+                    <!--<div class="col-md-10" style="margin-left: 80px">-->
+                        <tr>
+                            <td align='center' width="75"><b>Id</b></td>
+                            <td align='center' width="150"><b>Nome completo</b></td>
+                            <td align='center' width="75"><b>Username</b></td>
+                            <td align='center' width="75"><b>Email</b></td>
+                            <td align='center' width="100"><b>Saldo atual</b></td>
+                            <td align='center' width="75"><b>Bloqueado</b></td>
+                        </tr>
+                    </thead>
 
-</div>	<!-- /container -->
 
-<?php Layout::includeLayout('footer')?>
+                    <tbody>
+
+
+                    <form method='POST' action="<?= URL::toRoute('backoffice/status')?>">
+                    
+                    <?php  foreach ($users as $user) { ?>            
+                        
+                        <tr>
+                        
+                            <td><?=$user->id?></td>
+                            <td><?=$user->nome_completo?></td>
+                            <td><?=$user->username?></td>
+                            <td><?=$user->email?></td>
+                            <td><?=$user->saldo_atual?></td>
+                            <td align="center"><input type="checkbox" name=<?=$user->id?>  <?= ($user->bloqueado ? "checked" : '') ?>></td>
+                        </tr>
+                    <?php } ?>
+
+                    <!--tabela dentro de um form e colocar um check box com o checked == true ou false -->
+                    </tbody>
+            </table>
+            <center><button class="btn btn-action" type="submit">Guardar Alterações</button></center>
+                </form>
+
+            </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<?php Layout::includeLayout('footer'); ?>
