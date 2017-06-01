@@ -90,6 +90,11 @@ class MainController extends BaseController
 					}
 				}
 			}
+
+			else
+			{
+				Redirect::ToRoute('home/index');
+			}
 		}
 	}
 
