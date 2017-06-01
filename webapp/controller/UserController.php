@@ -10,29 +10,32 @@ class UserController extends BaseController
 {
 	public function perfil()
 	{
-		$user = Session::get('user');
+		if(Session::has('user'))
+		{
+			$user = Session::get('user');
 
-		View::attachsubview('perfil', 'user.perfil',  ['user' => $user]);
+			View::attachsubview('perfil', 'user.perfil',  ['user' => $user]);
 
-		return View::make('user/index');
+			return View::make('user/index');
+		}
 	}
 
 	public function editar()
 	{
-		$nome = Post::get('nome');
-		$birthdate = date_create(Post::get('birthdate'));
-		$email = Post::get('email');
-		$username = Post::get('username');
-		$password = Post::get('password');
+		if(Session::has('user'))
+		{
+			$nome = Post::get('nome');
+			$birthdate = date_create(Post::get('birthdate'));
+			$email = Post::get('email');
+			$username = Post::get('username');
+			$password = Post::get('password');
 
-		$dirty = false;
+			$dirty = false;
 
-		$user_session = Session::get('user');
+			$user_session = Session::get('user');
 
-		$user = User::find($user_session->id);
+			$user = User::find($user_session->id);
 
-		/*if(ctype_alnum($nome) && ctype_alnum($username))
-		{*/
 			if($password != "")
 			{
 				$user->password = password_hash($password, PASSWORD_BCRYPT);
@@ -67,75 +70,80 @@ class UserController extends BaseController
 
 				Redirect::ToRoute('game/index');
 			}
-		/*}*/
+		}
 	}
 
 	public function movimentos()
 	{
-		$user = Session::get('user');
+		if(Session::has('user'))
+		{
+			$user = Session::get('user');
 
-		$restricoes = array('conditions' => array('idutilizador = ?', $user->id));
+			$restricoes = array('conditions' => array('idutilizador = ?', $user->id));
 
-		$movimentos = Movement::all($restricoes);
+			$movimentos = Movement::all($restricoes);
 
-		//Debugger::barDump($movimentos, 'asdasd');
-
-		return View::make('user/movimentos', ['movimentos' => $movimentos]);
+			return View::make('user/movimentos', ['movimentos' => $movimentos]);
+		}
 	}
 
 	public function carregamento()
 	{
-		$user = Session::get('user');
+		if(Session::has('user'))
+		{
+			$user = Session::get('user');
 
-		return View::make('user/carregamento', ['saldo' => $user->saldo_atual]);
+			return View::make('user/carregamento', ['saldo' => $user->saldo_atual]);
+		}
 	}
 
 	public function carregar()
 	{
-		$montante = str_replace(' ', '', Post::get('montante'));
-
-		$user = Session::get('user');
-
-		if(is_numeric($montante))
+		if(Session::has('user'))
 		{
-			if($montante != "")
+			$montante = str_replace(' ', '', Post::get('montante'));
+
+			$user = Session::get('user');
+
+			if(is_numeric($montante))
 			{
-				$creditos = (intval($montante) * 4);
-				$saldo = $user->saldo_atual + $creditos;
-				$user->saldo_atual = $saldo;
-
-				$user->save();
-
-				$movement = new Movement();
-				$movement->tipo = "pay";
-				$movement->descricao = "Carregamento " . $montante . "€";
-				$movement->valor = $creditos;
-				$movement->saldo = $user->saldo_atual;
-				$movement->idutilizador = $user->id;
-				
-				if($movement->is_valid())
+				if($montante != "")
 				{
-					$movement->save();
+					$creditos = (intval($montante) * 4);
+					$saldo = $user->saldo_atual + $creditos;
+					$user->saldo_atual = $saldo;
 
-					Session::destroy();
-					Session::set('user', $user);
+					$user->save();
 
-					Redirect::ToRoute('game/index');
+					$movement = new Movement();
+					$movement->tipo = "pay";
+					$movement->descricao = "Carregamento " . $montante . "€";
+					$movement->valor = $creditos;
+					$movement->saldo = $user->saldo_atual;
+					$movement->idutilizador = $user->id;
+					
+					if($movement->is_valid())
+					{
+						$movement->save();
+
+						Session::destroy();
+						Session::set('user', $user);
+
+						Redirect::ToRoute('game/index');
+					}
 				}
 			}
-		}
-
-		else
-		{
-
 		}
 	}
 
 	public function logout()
 	{
-		Session::destroy();
+		if(Session::has('user'))
+		{
+			Session::destroy();
 
-		Redirect::toRoute('home/index');
+			Redirect::toRoute('home/index');
+		}
 	}
 }
 
