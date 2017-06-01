@@ -2,9 +2,46 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Data;
 
 Layout::includeLayout('userheader');
 
-Layout::setSubViewContainer('carregamento');
+$saldo = Data::get('saldo');
 
-Layout::includeLayout('footer');
+?>
+
+<div class="container">
+	<div class="row">
+		<article class="col-xs-12 maincontent">
+			<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+				<div class="panel panel-default" style="margin-top: 50px; margin-bottom: 100px">
+					<div class="panel-body">
+						<h1 class="thin text-center"><b>Carregamento</b></h1>
+						<hr>
+                        <h4 class="thin text-center">Saldo Atual: <?=$saldo?></h4>
+						<hr>
+						
+						<form method="POST" action="<?= URL::toRoute('user/carregamento')?>">
+							<div class="top-margin">
+								<label>Montante (<b>€</b>)</label>
+								<input type="text" class="form-control" name="montante" required="required">
+							</div>
+
+							<hr>
+
+							<div class="row">
+								<div class="col-lg-8">
+								</div>
+								<div class="col-lg-4 text-right">
+									<button class="btn btn-action" type="submit">Carregar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</article>
+	</div>
+</div>
+
+<?php Layout::includeLayout('footer'); ?>

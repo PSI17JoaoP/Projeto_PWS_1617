@@ -19,11 +19,11 @@ Layout::includeLayout('indexheader');
 						<form method="POST" action="<?= URL::toRoute('home/login')?>">
 							<div class="top-margin">
 								<label>Utilizador <span class="text-danger">*</span></label>
-								<input type="text" class="form-control" name="username">
+								<input type="text" class="form-control" name="username" required="required">
 							</div>
 							<div class="top-margin">
 								<label>Palavra-Passe <span class="text-danger">*</span></label>
-								<input type="password" class="form-control" name="password">
+								<input type="password" class="form-control" name="password" required="required">
 							</div>
 
 							<hr>

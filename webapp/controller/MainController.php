@@ -42,20 +42,28 @@ class MainController extends BaseController
 		$username = Post::get('username');
 		$password = Post::get('password');
 
-		$dados = array('nome_completo' => $nome, 'data_nascimento' => $birthdate, 'email' => $email, 'username' => $username, 'password' => password_hash($password, PASSWORD_BCRYPT), 'tipo' => "User", 'saldo_atual' => 0, 'bloqueado' => false);
-
-		$user = new User($dados);
-
-		if($user->is_valid())
+		if(!is_null($nome) && !is_null($birthdate) && !is_null($email) && !is_null($username) && !is_null($password))
 		{
-			$user->save();
+			$dados = array('nome_completo' => $nome, 'data_nascimento' => $birthdate, 'email' => $email, 'username' => $username, 'password' => password_hash($password, PASSWORD_BCRYPT), 'tipo' => "User", 'saldo_atual' => 0, 'bloqueado' => false);
 
-			Redirect::ToRoute('home/index');
+			$user = new User($dados);
+
+			if($user->is_valid())
+			{
+				$user->save();
+
+				Redirect::ToRoute('home/index');
+			}
+
+			/*else
+			{
+				Redirect::flashToRoute('home/index', ['user' => $user->errors]);
+			}*/
 		}
 
 		else
 		{
-			Redirect::flashToRoute('home/index', ['user' => $user]);
+
 		}
 	}
 
@@ -64,29 +72,37 @@ class MainController extends BaseController
 		$username = Post::get('username');
 		$password = Post::get('password');
 
-		$user = User::find_by_username($username);
-
-		if(password_verify($password, $user->password))
+		if(!is_null($username) && !is_null($password))
 		{
-			if($user->tipo === "Admin")
-			{
-				Session::set('admin', $user);
+			$user = User::find_by_username($username);
 
-				Redirect::toRoute('backoffice/index', $user->id);
+			if(password_verify($password, $user->password))
+			{
+				if($user->tipo === "Admin")
+				{
+					Session::set('admin', $user);
+
+					Redirect::toRoute('backoffice/index', $user->id);
+				}
+
+				else
+				{
+					Session::set('user', $user);
+
+					Redirect::toRoute('game/index', $user->id);
+				}
 			}
 
 			else
 			{
-				Session::set('user', $user);
-
-				Redirect::toRoute('game/index', $user->id);
+				
 			}
 		}
 
-		/*else
+		else
 		{
-			Redirect::flashToRoute('home/index', ['user' => $user]);
-		}*/
+
+		}
 	}
 
 	public function jackpot()

@@ -30,12 +30,6 @@ class Game
 			}
 		}
 
-		foreach ($deck as $card) {
-			$card->Naipe;
-			$card->Valor;
-			$card->Image;
-		}
-
 		shuffle($deck);
 
 		//---------------------------------------------------
