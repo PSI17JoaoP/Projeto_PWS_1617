@@ -152,10 +152,10 @@ class UserController extends BaseController
 						Redirect::ToRoute('game/index');
 					}
 
-					else
+					/*else
 					{
 						Redirect::flashToRoute('game/index', ['movement' => $movement->errors]);
-					}	
+					}*/	
 				}
 			}
 		}

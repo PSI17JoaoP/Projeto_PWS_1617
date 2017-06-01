@@ -72,10 +72,10 @@ class BackOfficeController extends BaseController
 			Redirect::ToRoute('backoffice/index');
 		}
 
-		else
+		/*else
 		{
 			Redirect::flashToRoute('backoffice/index', ['user' => $user->errors]);
-		}
+		}*/
 	}
 
 	public function guardaralteracoes(){
