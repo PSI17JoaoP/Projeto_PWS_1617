@@ -10,24 +10,40 @@ class GameController extends BaseController
 {
 
 	public function index(){
+
 		if(Session::has('user'))
 		{
-			Session::set('bet', 0);
-			Session::remove('hand');
-			Session::remove('deck');
+			$user = Session::get('user');
+
+			if($user->saldo_atual != 0)
+			{
+				Session::set('bet', 0);
+				Session::remove('hand');
+				Session::remove('deck');
 
 
-			$handImages = array();
+				$handImages = array();
 
-			for($i=0; $i<5; $i++) {
-				array_push($handImages, "cardBack_blue5.png");
+				for($i=0; $i<5; $i++) {
+					array_push($handImages, "cardBack_blue5.png");
+				}
+
+				View::attachsubview('gamehand', 'game.staticHand',  ['hand' => $handImages, 'title' => 'Jogue!']);
+				View::attachsubview('gamebody', 'game.bet');
+
+				return View::make('game.index');
 			}
 
-			View::attachsubview('gamehand', 'game.staticHand',  ['hand' => $handImages, 'title' => 'Jogue!']);
-			View::attachsubview('gamebody', 'game.bet');
-
-			return View::make('game.index');
+			else
+			{
+				Redirect::ToRoute('user/carregamento');
+			}
 		}
+
+		else
+		{
+			Redirect::toRoute('home/index');
+		}			
 	}
 
 	public function start(){
@@ -76,10 +92,15 @@ class GameController extends BaseController
 				Redirect::ToRoute('game/index');
 			}
 		}
+
+		else
+		{
+			Redirect::toRoute('home/index');
+		}			
 	}
 
 	public function finish(){
-		
+
 		if(Session::has('user'))
 		{
 			$card1 = Post::get('c0');
@@ -125,6 +146,11 @@ class GameController extends BaseController
 
 			return View::make('game.index');
 		}
+
+		else
+		{
+			Redirect::toRoute('home/index');
+		}			
 	}
 
 }

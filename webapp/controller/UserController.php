@@ -18,6 +18,11 @@ class UserController extends BaseController
 
 			return View::make('user/index');
 		}
+
+		else
+		{
+			Redirect::toRoute('home/index');
+		}
 	}
 
 	public function editar()
@@ -71,6 +76,11 @@ class UserController extends BaseController
 				Redirect::ToRoute('game/index');
 			}
 		}
+
+		else
+		{
+			Redirect::toRoute('home/index');
+		}
 	}
 
 	public function movimentos()
@@ -85,6 +95,11 @@ class UserController extends BaseController
 
 			return View::make('user/movimentos', ['movimentos' => $movimentos]);
 		}
+
+		else
+		{
+			Redirect::toRoute('home/index');
+		}
 	}
 
 	public function carregamento()
@@ -94,6 +109,11 @@ class UserController extends BaseController
 			$user = Session::get('user');
 
 			return View::make('user/carregamento', ['saldo' => $user->saldo_atual]);
+		}
+
+		else
+		{
+			Redirect::toRoute('home/index');
 		}
 	}
 
@@ -131,9 +151,19 @@ class UserController extends BaseController
 
 						Redirect::ToRoute('game/index');
 					}
+
+					else
+					{
+						Redirect::flashToRoute('game/index', ['movement' => $movement->errors]);
+					}	
 				}
 			}
 		}
+
+		else
+		{
+			Redirect::toRoute('home/index');
+		}		
 	}
 
 	public function logout()
@@ -144,6 +174,11 @@ class UserController extends BaseController
 
 			Redirect::toRoute('home/index');
 		}
+
+		else
+		{
+			Redirect::toRoute('home/index');
+		}		
 	}
 }
 

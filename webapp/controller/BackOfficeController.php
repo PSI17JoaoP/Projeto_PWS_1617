@@ -10,52 +10,51 @@ class BackOfficeController extends BaseController
 
 	public function index()
 	{
-		/*$dados = array();*/
-		/*$users = User::all();*/
+		if(Session::has('admin'))
+		{
+			$query = "SELECT * FROM users WHERE UPPER(tipo) = 'USER'";
 
-		$query = "SELECT * FROM users WHERE UPPER(tipo) = 'USER'";
+			$users = User::find_by_sql($query);
 
-		$users = User::find_by_sql($query);
+			return View::make('backoffice/index', ['users' => $users]);
+		}
 
-		return View::make('backoffice/index', ['users' => $users]);
-	}
-
-		public function lock()
-	{
-
-		return View::make('backoffice/index');
-	}
-
-		public function unlock()
-	{
-
-		return View::make('backoffice/index');
+		else
+		{
+			Redirect::toRoute('home/index');
+		}
 	}
 
 	public function register()
 	{
+		if(Session::has('admin'))
+		{
+			return View::make('backoffice/register');
+		}
 
-		return View::make('backoffice/register');
+		else
+		{
+			Redirect::toRoute('home/index');
+		}
 	}
 
 	public function logout()
 	{
-		Session::destroy();
+		if(Session::has('admin'))
+		{
+			Session::destroy();
 
-		Redirect::toRoute('home/index');
+			Redirect::toRoute('home/index');
+		}
+
+		else
+		{
+			Redirect::toRoute('home/index');
+		}
 	}
 
 	public function criaradmin()
 	{
-		//buscardados
-
-		//array
-
-		//se for valido
-
-		//
-
-		//função create account do main controllerZ
 		$nome = Post::get('nome');
 		$birthdate = date_create(Post::get('birthdate'));
 		$email = Post::get('email');
@@ -75,44 +74,12 @@ class BackOfficeController extends BaseController
 
 		else
 		{
-			Redirect::flashToRoute('backoffice/index', ['user' => $user]);
+			Redirect::flashToRoute('backoffice/index', ['user' => $user->errors]);
 		}
 	}
 
 	public function guardaralteracoes(){
 		
-		/*$count = User::count(User::all());
-
-
-
-		var_dump($count);*/
-		
-		$query = "SELECT * FROM users";
-
-		$result = User::find_by_sql($query);
-
-		$numeroUsers = count($result);
-
-		
-		
-		for ($i=1; $i <= $numeroUsers ; $i++) { 
-			
-			@$id = Post::get($i);
-
-			$user = User::find($i);
-			
-			if (is_null($id)) {
-				$user->bloqueado = false;
-			} else {
-				$user->bloqueado = true;
-			}
-
-			if($user->is_valid()) {
-				$user->save();
-				Redirect::toRoute('backoffice/index');
-			}	
-		}
-
 		//1. vai buscar o numero de utilizadores count.
 
 		//2. um for de 1 até ao count.
@@ -120,12 +87,33 @@ class BackOfficeController extends BaseController
 				//codigobloquear 
 			//2.2 else
 				//codigo desbloquear
+
+		//NÂO FUNCIONA SE OS ID'S NÂO FOREM SEQUÊNCIAIS!
+		
+		$query = "SELECT * FROM users";
+
+		$result = User::find_by_sql($query);
+
+		$numeroUsers = count($result);
+
+		for ($i=1; $i <= $numeroUsers ; $i++) { 
+			
+			@$id = Post::get($i);
+
+			$user = User::find($i);
+			
+			if (is_null($id)) {
+				$user->bloqueado = 0;
+			} else {
+				$user->bloqueado = 1;
+			}
+
+			if($user->is_valid()) {
+				$user->save();
+				Redirect::toRoute('backoffice/index');
+			}	
+		}
 	}
-
-	
-
-
-
 }
 
 ?>

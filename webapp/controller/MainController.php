@@ -55,10 +55,10 @@ class MainController extends BaseController
 				Redirect::ToRoute('home/index');
 			}
 
-			/*else
+			else
 			{
 				Redirect::flashToRoute('home/index', ['user' => $user->errors]);
-			}*/
+			}
 		}
 
 		else
@@ -95,20 +95,19 @@ class MainController extends BaseController
 
 			else
 			{
-				
+				Redirect::flashToRoute('home/login', ['error' => '']);
 			}
 		}
 
 		else
 		{
-
+			Redirect::flashToRoute('home/login', ['error' => '']);
 		}
 	}
 
 	public function jackpot()
 	{
 		$jackpot = array();
-
 
 		$query = "SELECT users.nome_completo, COUNT(*) as 'Count', SUM(valor) as 'Sum'
 					FROM users
@@ -120,7 +119,6 @@ class MainController extends BaseController
 
 		
 		$results = User::find_by_sql($query);
-
 
 		foreach ($results as $i => $record) {
 			$line = array($record->nome_completo, $record->count, $record->sum);

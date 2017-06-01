@@ -39,7 +39,7 @@ Router::get('backoffice/index', 		        'BackOfficeController/index');
 Router::get('backoffice/register',   			'BackOfficeController/register');
 Router::post('backoffice/register', 			'BackOfficeController/criaradmin');
 Router::get('backoffice/logout', 				'BackOfficeController/logout');
-Router::post('backoffice/status', 			'BackOfficeController/guardaralteracoes');
+Router::post('backoffice/status', 			    'BackOfficeController/guardaralteracoes');
 
 
 //--------------------------------------------------------------
