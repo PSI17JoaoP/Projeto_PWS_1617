@@ -96,11 +96,13 @@ class BackOfficeController extends BaseController
 
 		$numeroUsers = count($result);
 
-		for ($i=1; $i <= $numeroUsers ; $i++) { 
+		$all = Post::getAll();
+		var_dump($all);
+		/*for ($i=0; $i < $numeroUsers ; $i++) { 
 			
-			@$id = Post::get($i);
+			@$id = $all[$i];
 
-			$user = User::find($i);
+			$user = User::find($id);
 			
 			if (is_null($id)) {
 				$user->bloqueado = 0;
@@ -112,7 +114,7 @@ class BackOfficeController extends BaseController
 				$user->save();
 				Redirect::toRoute('backoffice/index');
 			}	
-		}
+		}*/
 	}
 }
 
