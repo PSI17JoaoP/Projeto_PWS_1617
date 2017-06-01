@@ -45,7 +45,10 @@ Layout::includeLayout('backofficeheader');
                             <td><?=$user->username?></td>
                             <td><?=$user->email?></td>
                             <td><?=$user->saldo_atual?></td>
-                            <td align="center"><input type="checkbox" name=<?=$user->id?>  <?= ($user->bloqueado ? "checked" : '') ?>></td>
+                            <td align="center">
+                                <input type="hidden" id=<?=$user->id?> name=<?=$user->id?> value=<?= ($user->bloqueado ? "1" : "0") ?> >
+                                <input type="checkbox" id="c<?=$user->id?>" <?= ($user->bloqueado ? "checked" : '') ?> onclick="check('c<?=$user->id?>', <?=$user->id?>)">
+                            </td>
                         </tr>
                     <?php } ?>
 
@@ -60,4 +63,19 @@ Layout::includeLayout('backofficeheader');
     </div>
 </div>
 
+<script type="text/javascript">
+    function check(id1, id2)
+    {
+        checkbox = document.getElementById(id1);
+        valor = document.getElementById(id2);
+
+        if (checkbox.checked) 
+        {
+            valor.value = 1;
+        } else 
+        {
+            valor.value = 0;
+        }
+    }
+</script>
 <?php Layout::includeLayout('footer'); ?>
