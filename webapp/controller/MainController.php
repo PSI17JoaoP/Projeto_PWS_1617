@@ -55,15 +55,10 @@ class MainController extends BaseController
 				Redirect::ToRoute('home/index');
 			}
 
-			else
+			/*else
 			{
 				Redirect::flashToRoute('home/index', ['user' => $user->errors]);
-			}
-		}
-
-		else
-		{
-
+			}*/
 		}
 	}
 
@@ -76,32 +71,30 @@ class MainController extends BaseController
 		{
 			$user = User::find_by_username($username);
 
-			if(password_verify($password, $user->password))
+			if(!is_null($user))
 			{
-				if($user->tipo === "Admin")
+				if(password_verify($password, $user->password))
 				{
-					Session::set('admin', $user);
+					if($user->tipo === "Admin")
+					{
+						Session::set('admin', $user);
 
-					Redirect::toRoute('backoffice/index', $user->id);
-				}
+						Redirect::toRoute('backoffice/index', $user->id);
+					}
 
-				else
-				{
-					Session::set('user', $user);
+					else
+					{
+						Session::set('user', $user);
 
-					Redirect::toRoute('game/index', $user->id);
+						Redirect::toRoute('game/index', $user->id);
+					}
 				}
 			}
 
 			else
 			{
-				Redirect::flashToRoute('home/login', ['error' => '']);
+				Redirect::ToRoute('home/index');
 			}
-		}
-
-		else
-		{
-			Redirect::flashToRoute('home/login', ['error' => '']);
 		}
 	}
 
