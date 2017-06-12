@@ -13,8 +13,8 @@ class User extends Model
         array('password', 'message' => 'A password introduzida está vazia', 'on' => 'create')
     );
 
-    static $validates_uniqueness_of = array(
+    /*static $validates_uniqueness_of = array(
         array('email', 'message' => 'O email introduzido já existe'),
         array('username', 'message' => 'O username introduzido já existe')
-    );
+    );*/
 }

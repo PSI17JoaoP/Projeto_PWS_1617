@@ -72,10 +72,10 @@ class BackOfficeController extends BaseController
 			Redirect::ToRoute('backoffice/index');
 		}
 
-		/*else
+		else
 		{
 			Redirect::flashToRoute('backoffice/index', ['user' => $user->errors]);
-		}*/
+		}
 	}
 
 	public function guardaralteracoes(){
@@ -97,24 +97,18 @@ class BackOfficeController extends BaseController
 		$numeroUsers = count($result);
 
 		$all = Post::getAll();
-		var_dump($all);
-		/*for ($i=0; $i < $numeroUsers ; $i++) { 
-			
-			@$id = $all[$i];
+
+		foreach ($all as $id => $value) {
 
 			$user = User::find($id);
-			
-			if (is_null($id)) {
-				$user->bloqueado = 0;
-			} else {
-				$user->bloqueado = 1;
-			}
+
+			$user->bloqueado = $value;
 
 			if($user->is_valid()) {
 				$user->save();
 				Redirect::toRoute('backoffice/index');
-			}	
-		}*/
+			}
+		}
 	}
 }
 
